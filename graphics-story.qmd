@@ -1,0 +1,90 @@
+---
+title: "Crashes in California (2014-2023)"
+format:
+  closeread-html:
+    cr-style:
+      section-background-color: white
+      narrative-background-color-sidebar: black
+      narrative-text-color-sidebar: white
+      narrative-font-family: 'Georgia, "Times New Roman", Times, serif'
+      narrative-font-size: 1.8rem
+embed-resources: true
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+
+crashes = read_csv("crashes_per_year.csv")
+```
+
+
+Crashes per year in California
+
+::::{.cr-section}
+
+Have you ever wondered how many crashes per year occur in California? @cr-plot1
+
+:::{#cr-plot1}
+```{r plot1}
+crashes |> 
+  ggplot(aes(x = ACCIDENT_YEAR, y = COUNT)) +
+  geom_col(fill = "#FFFFFF00") +
+  scale_x_continuous(breaks = 2014:2023) +
+  labs(x = "") +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank())
+```
+:::
+
+
+Here's the distribution of crashes in California between 2014 and 2023 @cr-plot2
+
+:::{#cr-plot2}
+```{r plot2}
+crashes |> 
+  ggplot(aes(x = ACCIDENT_YEAR, y = COUNT)) +
+  geom_col(fill = "#AAAAAA") +
+  scale_x_continuous(breaks = 2014:2023) +
+  labs(x = "") +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank())
+```
+:::
+
+The number of crashes has always exceeded 150,000 ... @cr-plot3
+
+:::{#cr-plot3}
+```{r plot3}
+crashes |> 
+  ggplot(aes(x = ACCIDENT_YEAR, y = COUNT)) +
+  geom_col(fill = "#AAAAAA") +
+  geom_hline(yintercept = 150000) +
+  scale_x_continuous(breaks = 2014:2023) +
+  labs(x = "") +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank())
+```
+:::
+
+
+... except in 2020 when the Covid pandemic hit @cr-plot4
+
+:::{#cr-plot4}
+```{r plot4}
+crashes |> 
+  ggplot(aes(x = ACCIDENT_YEAR, y = COUNT)) +
+  geom_col(fill = c(rep("#AAAAAA", 6), "tomato", rep("#AAAAAA", 3))) +
+  geom_hline(yintercept = 150000) +
+  scale_x_continuous(breaks = 2014:2023) +
+  labs(x = "") +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank())
+```
+:::
+
+Why did the number of crashes in 2021, 2022, and 2023 remain below the pre-pandemic
+levels? [@cr-plot4]{pan-to="-25%,25%" scale-by="1.5"}
+
+Probably because of: high gas prices, and working from home @cr-plot4
+
+::::
